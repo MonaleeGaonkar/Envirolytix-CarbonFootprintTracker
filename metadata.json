@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Enviro-Lytix: Carbon Footprint Tracker",
+  "description": "A real-time, AI-powered carbon tracking platform that measures, analyzes, and suggests actions to reduce your carbon footprint. Log activities, get personalized tips from a Green Coach, and track your progress toward a sustainable lifestyle.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enviro-Lytix: Carbon Footprint Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Prevents flash of incorrect theme
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            backgroundImage: {
+              'gradient-primary': 'linear-gradient(to right, #10b981, #14b8a6)',
+            },
+            ringColor: {
+              'primary': '#10b981',
+            },
+            ringOffsetColor: {
+               'background-light': '#f8fafc', // bg-slate-50
+               'background-dark': '#0f172a',   // bg-slate-900
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      .loading-ellipsis::after {
+        display: inline-block;
+        animation: ellipsis 1.25s infinite;
+        content: ".";
+        width: 1em;
+        text-align: left;
+      }
+      @keyframes ellipsis {
+        0% { content: "."; }
+        33% { content: ".."; }
+        66% { content: "..."; }
+      }
+      @keyframes pop-in {
+        0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+      }
+      .animate-pop-in {
+        animation: pop-in 0.4s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes bounce-click {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+      .animate-bounce-click {
+        animation: bounce-click 0.4s ease-in-out;
+      }
+      @keyframes pulse-zero {
+        0%, 100% {
+          stroke-opacity: 0.4;
+        }
+        50% {
+          stroke-opacity: 1;
+        }
+      }
+      .animate-pulse-zero {
+        animation: pulse-zero 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "date-fns": "https://aistudiocdn.com/date-fns@^4.1.0",
+    "date-fns/": "https://aistudiocdn.com/date-fns@^4.1.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
