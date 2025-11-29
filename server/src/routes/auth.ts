@@ -6,9 +6,16 @@ import { LoginRequest, RegisterRequest, AuthResponse, UpdateProfileRequest } fro
 const authRouter = Router();
 
 authRouter.use((req, res, next) => {
-  console.log(`📍 ${req.method} ${req.path}`, req.body);
+  const safeBody = { ...req.body };
+
+  if (safeBody.password) {
+    safeBody.password = "***HIDDEN***";
+  }
+
+  console.log(`📍 ${req.method} ${req.path}`, safeBody);
   next();
 });
+
 
 // 🔹 REGISTER
 authRouter.post("/register", async (req: Request, res: Response) => {
