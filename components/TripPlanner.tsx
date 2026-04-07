@@ -226,7 +226,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ user,  onAddActivity, setLead
 
   try {
     // 🟢 Calculate trip footprint (CO2e etc.)
-    const res = await calcFunc(origin, destination, trip.type, user.id || user._id);
+    const res = await calcFunc(origin, destination, trip.type, userId);
     const tripData = res?.trip ?? res;
 
     // 🟢 Build new activity object
@@ -270,7 +270,7 @@ const TripPlanner: React.FC<TripPlannerProps> = ({ user,  onAddActivity, setLead
       }
       console.log("✅ Updated user saved:", updatedUser);
       // Pass updatedUser to onAddActivity so it syncs properly to leaderboard
-      onAddActivity(newActivity, updatedUser);
+      onAddActivity(newActivity);
     } else {
       onAddActivity(newActivity);
     }

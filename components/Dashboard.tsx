@@ -108,7 +108,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, activities, dailyGoal, setC
       // we need origin/destination; use simple placeholders or user-based values
       const origin = "Origin";
       const destination = "Destination";
-      const res = await calcFunc(origin, destination, calcType, user?.id || user?._id || '');
+      const res = await calcFunc(origin, destination, calcType, user?.id || '');
       const trip = res?.trip ?? res;
       setCalcResult({ description: trip?.mode || String(trip), co2e: trip?.co2e ?? 0 });
     } catch (err) {
@@ -253,7 +253,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user, activities, dailyGoal, setC
                 <YAxis stroke="currentColor" fontSize={12} />
                 <Tooltip contentStyle={{ backgroundColor: 'var(--card-bg, white)', border: '1px solid #ddd', borderRadius: '0.5rem' }}
                   labelFormatter={(label, payload) => payload?.[0]?.payload.date || label}
-                  formatter={(value: number) => [`${value.toFixed(2)} kg CO₂e`, 'CO2e']}
+                  // formatter={(value: number | undefined) => value ? `${value.toFixed(2)} kg CO₂e` : '0 kg CO₂e'}
+                  formatter={(value) => {
+                            const num = typeof value === 'number' ? value : Number(value);
+                            return `${num.toFixed(2)} kg CO₂e`;
+                         }}
                 />
                 <Legend />
                 <Bar dataKey="CO2e" name="CO2 Emissions" fill="#10b981" radius={[4, 4, 0, 0]} />

@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Chat } from '@google/genai';
 import { Activity, ChatMessage } from '../types';
 import { createChatSession, streamChatResponse, generateProactiveTip } from '../services/geminiService';
 import { badges } from '../constants';
@@ -16,13 +15,16 @@ const GreenCoach: React.FC<GreenCoachProps> = ({ activities, dailyGoal }) => {
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [chatSession, setChatSession] = useState<Chat | null>(null);
+    const [chatSession, setChatSession] = useState<{ ready: boolean } | null>(null);
     const chatEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const unlockedBadges = badges.filter(b => b.isUnlocked(activities));
-        const session = createChatSession(activities, unlockedBadges, dailyGoal);
-        setChatSession(session);
+        const init = async () => {
+            const unlockedBadges = badges.filter(b => b.isUnlocked(activities));
+            const session = await createChatSession(activities, unlockedBadges, dailyGoal);
+            setChatSession(session);
+        };
+        init();
     }, [activities, dailyGoal]);
 
     useEffect(() => {

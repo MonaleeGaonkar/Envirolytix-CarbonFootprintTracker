@@ -164,7 +164,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ onAddActivity, activities, us
                   }
                   try { localStorage.setItem("user", JSON.stringify(updatedUser)); } catch (e) { /* ignore */ }
                   // Pass updatedUser to onAddActivity so it syncs to leaderboard
-                  onAddActivity(newActivity, updatedUser);
+                  onAddActivity(newActivity);
                 } else {
                   // Fallback: try to refresh profile explicitly
                   const profileRes = await fetch(
